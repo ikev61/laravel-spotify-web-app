@@ -1,7 +1,7 @@
 # laravel-spotify-web-app
 Display a list of artist and their songs. This is in no way a full-blown web app; its just for assessment.
 
-Requirement
+# Dependency
 `$composer require rennokki/larafy`
 
 # root directory 
