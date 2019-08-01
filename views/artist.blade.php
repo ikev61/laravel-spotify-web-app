@@ -11,7 +11,7 @@
     		@include('layout.header')
     	</header>
         <div class="w3-content w3-padding-top">
-        	<h2>Top 20 by {{$artist->name}} (Singles/Featured)</h2>
+        	<h2><small><a href="http://localhost/spotify/public/">Back</a></small> Top 20 by {{$artist->name}}</h2>
             <div class="w3-row">
                 <div class="w3-third">
                     <img src="{{$artist->images[0]->url}}" class="w3-image">
