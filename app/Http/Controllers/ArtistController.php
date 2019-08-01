@@ -19,8 +19,8 @@ class ArtistController extends Controller
 
     public function index($artist) {
         $founds = $this->get_search($artist);
-        if(!$founds) 
-            return view('artist');
+        if(!isset($founds->items[0])) 
+            return redirect()->back()->with('error', $artist.' not a valid keyword');
         $first_match = $founds->items[0];
         $album = $this->get_album($first_match->id);
         return view('artist',['artist'=>$first_match,'albums'=>$album->items]);

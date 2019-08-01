@@ -18,8 +18,8 @@ class AlbumController extends Controller {
 
     public function index($artist,$id) {
         $album = $this->get_album($id);
-        if(!$album) 
-            return redirect()->action('ArtistController@index',['artist'=>$artist]);
+        if(!isset($album[0])) 
+            return redirect()->back()->with('error', $id.' not a valid album_id');
         return view('album',['album'=>$album[0],'artist'=>$artist]);
     }
 
