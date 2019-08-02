@@ -48,13 +48,3 @@
         </div>
     </div>
 </nav>
-@if(session()->has('error'))
-    <div class="w3-sand jumbotron">
-        {{ session()->get('error') }}
-    </div>
-@endif
-@if(session()->has('success'))
-    <div class="w3-green jumbotron">
-        {{ session()->get('success') }}
-    </div>
-@endif

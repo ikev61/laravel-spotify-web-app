@@ -8,5 +8,8 @@
         	<li><a href="{{$value->name}}">{{$value->name}}</a></li>
         @endforeach
 	</ul>
+	<div class="w3-row w3-margin-top">
+		{{$artists->links()}}
+	</div>
 </div>
 @endsection
