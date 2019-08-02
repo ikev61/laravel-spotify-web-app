@@ -15,6 +15,11 @@
     return view('index');
 });*/
 
-Route::get('/', 'IndexController@index');
+
+Auth::routes();
+
+Route::get('/', 'ArtistsController@index');
+Route::get('/new', 'NewController@index')->name('new');
+Route::post('/new', 'NewController@save')->name('save');
 Route::get('/{artist}', 'ArtistController@index');
 Route::get('/{artist}/{id}', 'AlbumController@index');
