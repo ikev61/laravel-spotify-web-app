@@ -14,6 +14,7 @@ class ArtistController extends Controller
      */
 
     function __construct() {
+        $this->middleware('auth');
         $this->api = new Larafy('e8c7be3ca98d4ab5bc84c0014190b910','24387bd9f9c045de8cc1d7a433f49e21');
     }
 
@@ -23,7 +24,7 @@ class ArtistController extends Controller
             return redirect()->back()->with('error', $artist.' not a valid keyword');
         $first_match = $founds->items[0];
         $album = $this->get_album($first_match->id);
-        return view('artist',['artist'=>$first_match,'albums'=>$album->items]);
+        return view('music.artist',['artist'=>$first_match,'albums'=>$album->items,'title'=>$artist]);
     }
 
     private function get_search($artist) {

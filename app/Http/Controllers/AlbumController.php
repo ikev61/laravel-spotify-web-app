@@ -13,6 +13,7 @@ class AlbumController extends Controller {
      */
 
     function __construct() {
+        $this->middleware('auth');
         $this->api = new Larafy('e8c7be3ca98d4ab5bc84c0014190b910','24387bd9f9c045de8cc1d7a433f49e21');
     }
 
@@ -20,7 +21,7 @@ class AlbumController extends Controller {
         $album = $this->get_album($id);
         if(!isset($album[0])) 
             return redirect()->back()->with('error', $id.' not a valid album_id');
-        return view('album',['album'=>$album[0],'artist'=>$artist]);
+        return view('music.album',['album'=>$album[0],'artist'=>$artist,'title'=>$album[0]->name]);
     }
 
     private function get_album($id) {
