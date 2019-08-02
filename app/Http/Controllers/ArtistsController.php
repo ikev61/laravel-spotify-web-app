@@ -16,9 +16,7 @@ class ArtistsController extends Controller {
     }
     
     public function index() {
-        
-        $artists = Artist::orderBy('created_at','desc')->get();
-
+        $artists = Artist::orderBy('created_at','desc')->paginate(15);
         if(!count($artists))
             return view('music.new',['title'=>'New Artist']);
         return view('music.index',['artists'=>$artists,'title'=>'Sporify']);
