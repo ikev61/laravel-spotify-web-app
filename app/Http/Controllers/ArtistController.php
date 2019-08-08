@@ -17,7 +17,7 @@ class ArtistController extends Controller
      */
 
     function __construct() {
-        $this->middleware('auth');
+        //$this->middleware('auth');
         $this->api = new Larafy('e8c7be3ca98d4ab5bc84c0014190b910','24387bd9f9c045de8cc1d7a433f49e21');
     }
 
@@ -69,7 +69,7 @@ class ArtistController extends Controller
 
     private function fetch_local_album($artist_id,$limit,$offset) {
         //$offset++;//curiosity
-        $album = Album::where([['artist_spotify_id','=',$artist_id],['limit_group','=',$limit],['offset_group','=',$offset]])->orderBy('created_at','desc')->paginate(20);
+        $album = Album::where([['artist_spotify_id','=',$artist_id],['limit_group','=',$limit],['offset_group','=',$offset]])->orderBy('created_at','desc')->groupBy('name')->paginate(20);
         if(count($album))
             return $album;
         return null;
@@ -77,7 +77,7 @@ class ArtistController extends Controller
 
     private function album_on_spotify($artist_id,$limit,$offset) {
         try {
-            return $this->api->getArtistAlbums($artist_id, $limit*2, $offset, ['single']);
+            return $this->api->getArtistAlbums($artist_id, $limit*2, $offset, 'single,appears_on');
         } catch(\Rennokki\Larafy\Exceptions\SpotifyAuthorizationException $e) {
             return null;
         }

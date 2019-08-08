@@ -14,6 +14,7 @@ class NewController extends Controller
      * @return \Illuminate\Http\Response
      */
     function __construct() {
+        $this->middleware('auth');
         $this->api = new Larafy('e8c7be3ca98d4ab5bc84c0014190b910','24387bd9f9c045de8cc1d7a433f49e21');
     }
 
@@ -28,17 +29,17 @@ class NewController extends Controller
         ]);
 
         if($this->exists_on_local($data['name'])) 
-            return redirect()->back()->withError("{$data['name']} already exist on db, find it <a href='/{$data['name']}'>here</a>");
+            return redirect()->back()->withError("<strong>{$data['name']}</strong> already exist on db, find it <a href='/{$data['name']}'>here</a>");
 
         $artist = $this->artist_on_spotify($data['name']);
         if(!$artist) 
-            return redirect()->back()->withError($data['name'].' has no account on spotify. Try a different name');
+            return redirect()->back()->withError("<strong>{$data['name']}</strong> has no account on spotify. Try a different name");
 
         $data['artist_spotify_id'] = $artist->id;
         $data['images'] = json_encode($artist->images);
 
         Artist::create($data);
-        return redirect()->back()->withSuccess("{$data['name']} was stored. Click <a href='/{$data['name']}'>here</a> to see list of songs");
+        return redirect()->back()->withSuccess("<strong>{$data['name']}</strong> was added. Click <strong><a href='/{$data['name']}'>here</a></strong> to see list of songs");
     }
 
     private function exists_on_local ($name) {
